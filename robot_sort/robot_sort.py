@@ -115,14 +115,22 @@ class SortingRobot:
 
         Maybe it if moves to the end and its light is off and swapping twice both is none (to show it holds nothing), return???
         """
-        # Pick up first card
-        self.swap_item()
-        # Move right and compare as it goes.
+
+        # Need to change this to use the light instead of a range.
+        # while self.light_is_on():
+        # self.set_light_off()
+
         for i in range(0, len(self._list) - 1):
+            # Pick up card
+            self.swap_item()
+            # Move right and compare as it goes.
             while(self.can_move_right()):
                 self.move_right()
                 if self.compare_item() == 1:
                     self.swap_item()
+                    # print('swapping items')
+                    self.set_light_on()
+                    # print('turning light on')
 
             # Now, move left in the list to put the holding card in the hole.
             while(self.can_move_left()):
@@ -130,51 +138,13 @@ class SortingRobot:
                 if self.compare_item() == None:
                     self.swap_item()
                     break
-            print(self._list)
+            # print(self._list)
 
+            # Move one position over before the loop starts again.
             self.move_right()
-            print(self._position)
-            self.swap_item()
-            print(self._item)
-        '''
-        while(self.can_move_right()):
-            self.move_right()
-            print(str(self._item) + ' versus ' +
-                  str(self._list[self._position]))
+            # print(self._position)
+            # print(self._item)
 
-            if self.compare_item() == 1:
-                self.swap_item()
-            print(self._item)
-        while(self.can_move_left()):
-            self.move_left()
-            if self.compare_item() == None:
-                self.swap_item()
-                break
-        print(self._position)
-        print(self._list)
-
-        self.move_right()
-        print(self._position)
-        self.swap_item()
-        print(self._item)
-        while(self.can_move_right()):
-            self.move_right()
-            print(str(self._item) + ' versus ' +
-                  str(self._list[self._position]))
-
-            if self.compare_item() == 1:
-                self.swap_item()
-            print(self._item)
-        while(self.can_move_left()):
-            self.move_left()
-            if self.compare_item() == None:
-                self.swap_item()
-                break
-        print(self._position)
-        print(self._list)
-        '''
-        if (self.compare_item() == None):
-            self.swap_item()
         return self._list
 
 
