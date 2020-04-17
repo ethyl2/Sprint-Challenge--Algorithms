@@ -97,23 +97,20 @@ class SortingRobot:
     def sort(self):
         """
         Sort the robot's list.
+        First, set the light on.
 
-        The robot starts at the first position and picks up the card.
-        It has its light off.
-        While it's not at the end of the list:
-            It moves right.
-            If the card it is holding is larger than the one it is at, it swaps the cards and turns its light on.
-        When it's at the end of the list, it goes left until it reaches the beginning of the list.
-            If its light is off, it swaps what is is holding with the first position (which would have nothing) and it returns  -- either its list, or nothing, since the test just looks at the value of its list.
-            If its light is on, it turns off its light to reset it, moves over one position to the right and continues as before.
+        While the light is on, it performs a loop.
+            It sets its light off.
+            While it's not at the end of the list:
+                It moves right.
+                If the card it is holding is larger than the one it is at, 
+                    it swaps the cards 
+                    and turns its light on.
+                When it's at the end of the list, it goes left 
+                    until it reaches the hole and places the card it's holding in the hole.
+                    Then it moves over one position to the right and the loop restarts if the light is on.
+        At the end, it goes back to the end of the list and puts the card its holding in that hole.
 
-        Once it reaches the end of the list, it moves backwards and (maybe, probably not necessary, checks that the card is holds is smaller than
-        the card at the position, (swapping if necessary and turning on it light)) until it reaches the position with no card. Then it 'swaps' the card with that position
-        and moves one position right. And then continues until going back and forth doesn't make the light come on.
-
-        Moves until it gets back to the hole. Then evaluate if light is on and move forward if it was.
-
-        Maybe it if moves to the end and its light is off and swapping twice both is none (to show it holds nothing), return???
         """
         self.set_light_on()
 
@@ -144,7 +141,6 @@ class SortingRobot:
         while(self.can_move_right()):
             self.move_right()
         self.swap_item()
-        return self._list
 
 
 if __name__ == "__main__":
