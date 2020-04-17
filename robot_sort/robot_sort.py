@@ -155,7 +155,7 @@ if __name__ == "__main__":
     robot.sort()
     print(robot._list)
 
-    l2 = [1, 14, 2, 13]
+    # l2 = [1, 14, 2, 13]
     # robot2 = SortingRobot(l2)
     # robot2.sort()
     # print(robot2._list)
