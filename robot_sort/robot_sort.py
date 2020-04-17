@@ -128,9 +128,7 @@ class SortingRobot:
                 self.move_right()
                 if self.compare_item() == 1:
                     self.swap_item()
-                    # print('swapping items')
                     self.set_light_on()
-                    # print('turning light on')
 
             # Now, move left in the list to put the holding card in the hole.
             while(self.can_move_left()):
@@ -138,7 +136,6 @@ class SortingRobot:
                 if self.compare_item() == None:
                     self.swap_item()
                     break
-            # print(self._list)
 
             # Move one position over before the loop starts again.
             self.move_right()
