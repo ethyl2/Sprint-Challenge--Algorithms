@@ -115,12 +115,12 @@ class SortingRobot:
 
         Maybe it if moves to the end and its light is off and swapping twice both is none (to show it holds nothing), return???
         """
+        self.set_light_on()
 
-        # Need to change this to use the light instead of a range.
-        # while self.light_is_on():
-        # self.set_light_off()
+        while self.light_is_on():
+            self.set_light_off()
 
-        for i in range(0, len(self._list) - 1):
+            # for i in range(0, len(self._list) - 1): # This is what I used BEFORE fully implementing the light
             # Pick up card
             self.swap_item()
             # Move right and compare as it goes.
@@ -142,9 +142,11 @@ class SortingRobot:
 
             # Move one position over before the loop starts again.
             self.move_right()
-            # print(self._position)
-            # print(self._item)
 
+        # Stick the last card back in place
+        while(self.can_move_right()):
+            self.move_right()
+        self.swap_item()
         return self._list
 
 
