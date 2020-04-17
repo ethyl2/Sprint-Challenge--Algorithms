@@ -81,11 +81,13 @@ class SortingRobot:
         Turn on the robot's light
         """
         self._light = "ON"
+
     def set_light_off(self):
         """
         Turn off the robot's light
         """
         self._light = "OFF"
+
     def light_is_on(self):
         """
         Returns True if the robot's light is on and False otherwise.
@@ -95,18 +97,100 @@ class SortingRobot:
     def sort(self):
         """
         Sort the robot's list.
+
+        The robot starts at the first position and picks up the card.
+        It has its light off.
+        While it's not at the end of the list:
+            It moves right.
+            If the card it is holding is larger than the one it is at, it swaps the cards and turns its light on.
+        When it's at the end of the list, it goes left until it reaches the beginning of the list.
+            If its light is off, it swaps what is is holding with the first position (which would have nothing) and it returns  -- either its list, or nothing, since the test just looks at the value of its list.
+            If its light is on, it turns off its light to reset it, moves over one position to the right and continues as before.
+
+        Once it reaches the end of the list, it moves backwards and (maybe, probably not necessary, checks that the card is holds is smaller than
+        the card at the position, (swapping if necessary and turning on it light)) until it reaches the position with no card. Then it 'swaps' the card with that position
+        and moves one position right. And then continues until going back and forth doesn't make the light come on.
+
+        Moves until it gets back to the hole. Then evaluate if light is on and move forward if it was.
+
+        Maybe it if moves to the end and its light is off and swapping twice both is none (to show it holds nothing), return???
         """
-        # Fill this out
-        pass
+        # Pick up first card
+        self.swap_item()
+        # Move right and compare as it goes.
+        for i in range(0, len(self._list) - 1):
+            while(self.can_move_right()):
+                self.move_right()
+                if self.compare_item() == 1:
+                    self.swap_item()
+
+            # Now, move left in the list to put the holding card in the hole.
+            while(self.can_move_left()):
+                self.move_left()
+                if self.compare_item() == None:
+                    self.swap_item()
+                    break
+            print(self._list)
+
+            self.move_right()
+            print(self._position)
+            self.swap_item()
+            print(self._item)
+        '''
+        while(self.can_move_right()):
+            self.move_right()
+            print(str(self._item) + ' versus ' +
+                  str(self._list[self._position]))
+
+            if self.compare_item() == 1:
+                self.swap_item()
+            print(self._item)
+        while(self.can_move_left()):
+            self.move_left()
+            if self.compare_item() == None:
+                self.swap_item()
+                break
+        print(self._position)
+        print(self._list)
+
+        self.move_right()
+        print(self._position)
+        self.swap_item()
+        print(self._item)
+        while(self.can_move_right()):
+            self.move_right()
+            print(str(self._item) + ' versus ' +
+                  str(self._list[self._position]))
+
+            if self.compare_item() == 1:
+                self.swap_item()
+            print(self._item)
+        while(self.can_move_left()):
+            self.move_left()
+            if self.compare_item() == None:
+                self.swap_item()
+                break
+        print(self._position)
+        print(self._list)
+        '''
+        if (self.compare_item() == None):
+            self.swap_item()
+        return self._list
 
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
     # with `python robot_sort.py`
 
-    l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1, 45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
+    l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1,
+         45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
 
     robot = SortingRobot(l)
 
     robot.sort()
     print(robot._list)
+
+    l2 = [1, 14, 2, 13]
+    # robot2 = SortingRobot(l2)
+    # robot2.sort()
+    # print(robot2._list)
